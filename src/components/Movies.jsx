@@ -2,7 +2,6 @@ import React from "react";
 import { getMovies, deleteMovie } from "../services/movieService";
 import MoviesGenres from "./MoviesGenres";
 import MoviesTable from "./MoviesTable";
-import { toast } from "react-toastify";
 
 class Movies extends React.Component {
   state = {
@@ -26,7 +25,6 @@ class Movies extends React.Component {
     try {
       await deleteMovie(id);
     } catch (ex) {
-      toast("this movie has been deleted");
       this.setState({ movies: originalMovies });
     }
   };
@@ -109,6 +107,7 @@ class Movies extends React.Component {
           onPreviousPageChange={this.onPreviousPageChange}
           searchQuery={this.state.searchQuery}
           handleSearch={this.handleSearch}
+          user={this.props.user}
         />
       </React.Fragment>
     );

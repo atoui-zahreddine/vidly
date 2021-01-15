@@ -22,20 +22,21 @@ const MoviesTable = (props) => {
     props.sortColumn.path,
     props.sortColumn.order
   );
-  console.log(filteredMovies);
 
   const movies = filteredMovies.slice(start, end);
 
   return (
     <div className="row col-9 ">
       <div className="col">
-        <Link
-          to="/movies/new"
-          className="btn btn-primary"
-          style={{ marginBottom: 20 }}
-        >
-          New Movie
-        </Link>
+        {props.user ? (
+          <Link
+            to="/movies/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20 }}
+          >
+            New Movie
+          </Link>
+        ) : null}
         <p>Showing {filteredMovies.length} movies in the database </p>
         <SearchBox value={props.searchQuery} onChange={props.handleSearch} />
         <table className="table">
@@ -51,6 +52,7 @@ const MoviesTable = (props) => {
                 onDeleteMovie={props.onDeleteMovie}
                 onFavoriteClick={props.onFavoriteClick}
                 updateMovie={props.onMovieUpdate}
+                isAdmin={props.user?.isAdmin}
               />
             ))}
           </tbody>
